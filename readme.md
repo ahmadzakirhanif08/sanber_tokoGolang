@@ -49,7 +49,7 @@ The project uses a minimum of 4 interconnected relational tables:
 
 **Visual Schema (ERD)**
 
-![Mini E-Commerce ERD](github.com/ahmadzakirhanif08/sanber_tokoGolang.git/image/Sanber_tokoGolang.png)
+![Mini E-Commerce ERD](image/Sanber_tokoGolang.png)
 
 ---
 
