@@ -140,13 +140,12 @@ router.Group("/api/orders").Use(middlewares.JWTAuthMiddleware()) // Authenticate
 
 ```
 ## 7. How to use & Role Access
-    A.  Gain access (JWT)
-    1. Perform a `POST /api/users/login` and copy the returned token string.
+A.  Gain access (JWT)
+   1. Perform a `POST /api/users/login` and copy the returned token string.
+   2. Include the token in the Authorization Header of every subsequent protected request in the format: Authorization: Bearer <Your JWT Token>
 
-    2. Include the token in the Authorization Header of every subsequent protected request in the format: Authorization: Bearer <Your JWT Token>
-
-    B. Role-base access
-    ![Role-Base](image/role.png)
+B. Role-base access
+  ![Role-Base](image/role.png)
 
 
 
