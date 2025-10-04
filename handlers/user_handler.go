@@ -9,6 +9,16 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// @Summary Register a new user
+// @Description Creates a new user account with default 'user' role.
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Param request body models.RegisterRequest true "User Registration Data"
+// @Success 201 {object} map[string]string "Successful registration message"
+// @Failure 400 {object} map[string]string "Bad Request (Invalid input)"
+// @Failure 409 {object} map[string]string "Conflict (Username or email already exists)"
+// @Router /users/register [post]
 func RegisterHandler(c *gin.Context) {
 	var input models.RegisterRequest
 
@@ -40,6 +50,17 @@ func RegisterHandler(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "sign up success", "username": user.Username})
 }
 
+// LoginHandler
+// @Summary User Login
+// @Description Authenticates a user and returns a JWT token.
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Param request body models.LoginRequest true "Login Credentials"
+// @Success 200 {object} map[string]interface{} "Returns JWT token"
+// @Failure 400 {object} map[string]string "Bad Request"
+// @Failure 401 {object} map[string]string "Unauthorized"
+// @Router /users/login [post]
 func LoginHandler(c *gin.Context) {
 	var input models.LoginRequest
 	var user models.User

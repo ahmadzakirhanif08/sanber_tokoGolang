@@ -9,7 +9,7 @@ type OrderItem struct {
 	ID           uint           `gorm:"primaryKey" json:"id"`
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
-	DeletedAt    gorm.DeletedAt `gorm:"index"`
+	DeletedAt    gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 	
 	OrderID      uint           `gorm:"not null" json:"order_id"`
 	ProductID    uint           `gorm:"not null" json:"product_id"`

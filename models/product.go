@@ -9,7 +9,7 @@ type Product struct {
 	ID        uint           `gorm:"primaryKey" json:"id"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt `gorm:"index"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at`
 
 	Name      string  `gorm:"not null" json:"name"`
 	Description string `json:"description"`

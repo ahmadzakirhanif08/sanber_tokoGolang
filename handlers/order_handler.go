@@ -17,6 +17,18 @@ type CreateOrderRequest struct {
 	Items []OrderItemRequest `json:"items" binding:"required,min=1"`
 }
 
+// @Summary Create a new order
+// @Description Authenticated user creates an order, triggering database transaction and stock deduction.
+// @Tags Orders
+// @Security ApiKeyAuth
+// @Accept json
+// @Produce json
+// @Param request body handlers.CreateOrderRequest true "Order Items List"
+// @Success 201 {object} map[string]interface{} "Order created successfully"
+// @Failure 400 {object} map[string]string "Bad Request (Invalid items, quantity, or insufficient stock)"
+// @Failure 401 {object} map[string]string "Unauthorized (Missing or invalid token)"
+// @Failure 500 {object} map[string]string "Internal Server Error (Transaction failed)"
+// @Router /orders [post]
 func CreateOrder(c *gin.Context) {
 	var req CreateOrderRequest
 

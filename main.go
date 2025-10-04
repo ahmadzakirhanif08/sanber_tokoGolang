@@ -9,9 +9,20 @@ import (
 	"github.com/ahmadzakirhanif08/sanber_tokoGolang.git/router"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv" 
+	"github.com/joho/godotenv"
+
+	_ "github.com/ahmadzakirhanif08/sanber_tokoGolang.git/docs"
 )
 
+
+// @title Mini E-Commerce REST API - Golang Final Project
+// @version 1.0
+// @description Backend API untuk sistem e-commerce sederhana.
+// @host localhost:8080
+// @BasePath /api
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main(){
 	
 	//load .env

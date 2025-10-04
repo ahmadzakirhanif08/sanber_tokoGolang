@@ -3,11 +3,20 @@ package routes
 import (
 	"github.com/ahmadzakirhanif08/sanber_tokoGolang.git/handlers" 
 	"github.com/ahmadzakirhanif08/sanber_tokoGolang.git/middlewares"
+
 	"github.com/gin-gonic/gin"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 
 func SetupRouter(router *gin.Engine) {
+
+	//swagger router
+	//url http://localhost:8080/swagger/index.html
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	
 	// Group API /api
 	api := router.Group("/api")
