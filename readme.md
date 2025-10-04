@@ -133,12 +133,12 @@ The routing logic is centralized in the `routes` package for clean separation of
 
 ```go
 // main.go only handles setup and execution (router := gin.Default(); routes.SetupRouter(router))
-
 // routes/router.go contains:
 router.Group("/api").POST("/users/register", ...) // Auth routes
 router.Group("/api/products").Use(middlewares.JWTAuthMiddleware(), middlewares.AdminAuthMiddleware()) // Admin protection
-router.Group("/api/orders").Use(middlewares.JWTAuthMiddleware()) // Authenticated user protection
+router.Group("/api/orders").Use(middlewares.JWTAuthMiddleware()) // Authenticated user protection.
 
+```
 ## 7. How to use & Role Access
     A.  Gain access (JWT)
     1. Perform a `POST /api/users/login` and copy the returned token string.
@@ -147,4 +147,7 @@ router.Group("/api/orders").Use(middlewares.JWTAuthMiddleware()) // Authenticate
 
     B. Role-base access
     ![Role-Base](image/role.png)
+
+
+
 
