@@ -25,6 +25,11 @@ func SetupRouter(router *gin.Engine) {
 		api.POST("/users/register", handlers.RegisterHandler)
 		api.POST("/users/login", handlers.LoginHandler)
 
+			
+		// Read/View (Public/Guest Access)
+		api.GET("/products", handlers.GetAllProducts)
+		api.GET("/products/:id", handlers.GetProductByID)
+
 		// Product Group API
 		products := api.Group("/products")
 		{
@@ -35,10 +40,7 @@ func SetupRouter(router *gin.Engine) {
 				products.PUT("/:id", handlers.UpdateProduct)
 				products.DELETE("/:id", handlers.DeleteProduct)
 			}
-			
-			// Read/View (Public/Guest Access)
-			products.GET("/", handlers.GetAllProducts)
-			products.GET("/:id", handlers.GetProductByID) 
+		
 		}
 
 		// Order Group API (Requires JWT Login)
