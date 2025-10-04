@@ -16,6 +16,7 @@ This project implements a simple E-Commerce backend system as a **RESTful API** 
     * [5.3. Transactions (User Access)](#53-transactions-user-access)
 6.  [Project Structure (Routing)](#6-project-structure-routing)
 7.  [How to Use & Role Access](#7-how-to-use--role-access)
+8.  [How to Use/Test this API](#how-to-use-this-api)
 
 ---
 
