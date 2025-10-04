@@ -147,6 +147,66 @@ A.  Gain access (JWT)
 B. Role-base access
   ![Role-Base](image/role.png)
 
+# How to use this API?
+
+Before start using this Backend, please make sure step below are complete
+-   **Run the Server:** Make sure your Golang application is running (`go run main.go`) and listening on `http://localhost:8080`.
+    
+-   **Define Users:** You need two distinct users in your PostgreSQL database to test RBAC:
+    
+    -   **User Role:** Register a new user via the API (default role is `user`).
+        
+    -   **Admin Role:** Register a second user via the API, then manually update their `role` field in the database from `'user'` to `'admin'`.
+
+## Core Authentication and Token Acquisition
+
+| Step | Endpoint | Method | Body/Action | Expected Outcome |
+| :--- | :--- | :--- | :--- | :--- |
+| Register | `/api/users/register` | `POST` | Create `tester.admin` and `tester.user`. | **201 Created**. |
+| Login (Admin) | `/api/users/login` | `POST` | Login with the Admin credentials. | **200 OK**. SAVE ADMIN TOKEN. |
+| Login (User) | `/api/users/login` | `POST` | Login with the standard User credentials. | **200 OK**. SAVE USER TOKEN. |
+
+## Testing Role-Based Access Control (RBAC)
+
+This section verifies that your custom `JWTAuthMiddleware` and `AdminAuthMiddleware` are working correctly.
+| Scenario | Endpoint | Method | Role Used | Expected Status | Validation Check |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Admin CRUD Access** | `/api/products` | `POST` | Admin | **201 Created** | Admin successfully creates a product. |
+| **User CRUD Block** | `/api/products` | `POST` | User | **403 Forbidden** | Standard user is correctly blocked from inventory management. |
+| **Unauthenticated** | `/api/products` | `POST` | None | **401 Unauthorized** | Middleware correctly rejects missing token. |
+
+## Testing Core Business Logic (Orders & Transactions)
+
+This verifies the complexity of your main transactional logic (creating orders, checking stock, and using database transactions).
+### A. Create Order (`POST /api/orders`)
+| Scenario | Role Used | Input Data | Expected Status | Validation Check |
+| :--- | :--- | :--- | :--- | :--- |
+| **Success** | User (or Admin) | `{ "items": [ { "product_id": 1, "quantity": 1 } ] }` | **201 Created** | DB Check: Stock for product 1 is reduced by 1. |
+| **Insufficient Stock** | User | `{ "items": [ { "product_id": 1, "quantity": 999 } ] }` | **400 Bad Request** | DB Check: Error message is correct ("Insufficient stock"), and NO changes were made to Orders or Products tables (Transaction Rollback success). |
+
+### B. View Orders (`GET /api/orders`)
+| Scenario | Role Used | Expected Status | Validation Check |
+| :--- | :--- | :--- | :--- |
+| **View Own Orders** | User | **200 OK** | Response only lists orders created by this specific user (filtered by user_id). |
+| **View Empty Orders** | New User | **200 OK** (or 204 No Content) | Response correctly shows an empty array/list. |
+
+## Testing via Swagger (**UNDER CONSTRUCTION**)
+
+For a final, visual check:
+
+1.  Run `go run main.go`.
+    
+2.  Open `http://localhost:8080/swagger/index.html`.
+    
+3.  Click **Authorize**.
+    
+4.  Enter your **Admin Token** prefixed with `Bearer` (e.g., `Bearer eyJhbGci...`).
+    
+5.  Test the restricted **POST /api/products** endpoint directly from the Swagger interface.
+    
+
+A successful test suite across all these scenarios confirms that your API is robust, secure, and performs its core business logic correctly.
+
 
 
 
