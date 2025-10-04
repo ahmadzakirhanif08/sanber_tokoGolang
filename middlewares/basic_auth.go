@@ -1,16 +1,15 @@
 package middlewares
 
 import (
-	"os"
-	"net/http"
 	"github.com/gin-gonic/gin"
+	"net/http"
+	"os"
 )
-
 
 func BasicAuthMiddleware() gin.HandlerFunc {
 	authUsername := os.Getenv("BASIC_AUTH_USER")
 	authPassword := os.Getenv("BASIC_AUTH_PASSWORD")
-	
+
 	if authUsername == "" || authPassword == "" {
 		return func(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Basic Auth credentials not set in environment"})

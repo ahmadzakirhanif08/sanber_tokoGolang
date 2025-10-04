@@ -113,7 +113,7 @@ func CreateOrder(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"message": "Pesanan berhasil dibuat", "order_id": order.ID, "total": totalAmount})
+	c.JSON(http.StatusCreated, gin.H{"message": "order successfully created", "order_id": order.ID, "total": totalAmount})
 }
 
 func GetMyOrders(c *gin.Context) {
@@ -127,14 +127,14 @@ func GetMyOrders(c *gin.Context) {
 	result := configs.DB.Preload("Items.Product").Where("user_id = ?", userID.(uint)).Find(&orders)
 
 	if result.Error != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengambil data pesanan"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed fetching data"})
 		return
 	}
 
 	if len(orders) == 0 {
-		c.JSON(http.StatusOK, gin.H{"message": "Anda belum memiliki pesanan.", "data": []models.Order{}})
+		c.JSON(http.StatusOK, gin.H{"message": "you have no order yet.", "data": []models.Order{}})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Data pesanan Anda berhasil diambil", "data": orders})
+	c.JSON(http.StatusOK, gin.H{"message": "data successfully fetched", "data": orders})
 }

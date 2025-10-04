@@ -1,12 +1,12 @@
 package handlers
 
 import (
-	"net/http"
 	"github.com/ahmadzakirhanif08/sanber_tokoGolang.git/configs"
-	"github.com/ahmadzakirhanif08/sanber_tokoGolang.git/models"
 	"github.com/ahmadzakirhanif08/sanber_tokoGolang.git/middlewares"
+	"github.com/ahmadzakirhanif08/sanber_tokoGolang.git/models"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	"net/http"
 )
 
 // @Summary Register a new user

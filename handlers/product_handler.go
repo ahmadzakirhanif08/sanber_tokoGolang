@@ -42,7 +42,6 @@ func GetAllProducts(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": products})
 }
 
-
 // 3. GetProductByID: GET /api/products/:id
 func GetProductByID(c *gin.Context) {
 	var product models.Product
@@ -55,7 +54,6 @@ func GetProductByID(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": product})
 }
-
 
 // 4. UpdateProduct: PUT /api/products/:id
 func UpdateProduct(c *gin.Context) {

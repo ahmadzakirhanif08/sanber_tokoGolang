@@ -2,10 +2,10 @@ package middlewares
 
 import (
 	"fmt"
-	"net/http"
-	"strings"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
+	"net/http"
+	"strings"
 )
 
 func JWTAuthMiddleware() gin.HandlerFunc {
@@ -23,7 +23,7 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 		}
 
 		tokenString := parts[1]
-		
+
 		token, err := jwt.ParseWithClaims(tokenString, &JWTClaim{}, func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
